@@ -5,7 +5,6 @@ import 'package:auth_test/core/usecases/usecase.dart';
 import 'package:auth_test/features/auth/domain/entities/user.dart';
 import 'package:auth_test/features/auth/domain/repositories/auth_repository.dart';
 
-/// Use case for logging in a user
 class LoginUseCase implements UseCase<User, LoginParams> {
   final AuthRepository repository;
 
@@ -20,7 +19,6 @@ class LoginUseCase implements UseCase<User, LoginParams> {
   }
 }
 
-/// Parameters for login use case
 class LoginParams extends Equatable {
   final String email;
   final String password;

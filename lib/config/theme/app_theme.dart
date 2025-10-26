@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 
-/// Application theme configuration
 class AppTheme {
-  // Private constructor to prevent instantiation
+  
   AppTheme._();
 
-  // Color scheme
-  static const Color primaryColor = Color(0xFF6366F1); // Indigo
-  static const Color secondaryColor = Color(0xFF8B5CF6); // Purple
-  static const Color errorColor = Color(0xFFEF4444); // Red
-  static const Color successColor = Color(0xFF10B981); // Green
+  static const Color primaryColor = Color(0xFF6366F1); 
+  static const Color secondaryColor = Color(0xFF8B5CF6); 
+  static const Color errorColor = Color(0xFFEF4444); 
+  static const Color successColor = Color(0xFF10B981); 
 
-  /// Light theme configuration
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
@@ -24,7 +21,6 @@ class AppTheme {
       ),
       scaffoldBackgroundColor: Colors.white,
 
-      // AppBar theme
       appBarTheme: const AppBarTheme(
         centerTitle: true,
         elevation: 0,
@@ -32,7 +28,6 @@ class AppTheme {
         foregroundColor: Colors.black87,
       ),
 
-      // Text theme with responsive sizing
       textTheme: const TextTheme(
         displayLarge: TextStyle(
           fontSize: 32,
@@ -73,7 +68,6 @@ class AppTheme {
         ),
       ),
 
-      // Input decoration theme
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: Colors.grey.shade50,
@@ -103,7 +97,6 @@ class AppTheme {
         ),
       ),
 
-      // Elevated button theme
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: primaryColor,
@@ -120,7 +113,6 @@ class AppTheme {
         ),
       ),
 
-      // Outlined button theme
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: primaryColor,
@@ -136,7 +128,6 @@ class AppTheme {
         ),
       ),
 
-      // Card theme
       cardTheme: CardThemeData(
         elevation: 2,
         shape: RoundedRectangleBorder(
@@ -145,7 +136,6 @@ class AppTheme {
         margin: const EdgeInsets.all(8),
       ),
 
-      // SnackBar theme
       snackBarTheme: SnackBarThemeData(
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
@@ -159,7 +149,6 @@ class AppTheme {
     );
   }
 
-  /// Dark theme configuration (optional, for future enhancement)
   static ThemeData get darkTheme {
     return ThemeData(
       useMaterial3: true,

@@ -4,7 +4,6 @@ import 'package:auth_test/features/auth/data/datasources/auth_local_datasource.d
 import 'package:auth_test/features/auth/domain/entities/user.dart';
 import 'package:auth_test/features/auth/domain/repositories/auth_repository.dart';
 
-/// Implementation of AuthRepository
 class AuthRepositoryImpl implements AuthRepository {
   final AuthLocalDataSource dataSource;
 
@@ -35,6 +34,19 @@ class AuthRepositoryImpl implements AuthRepository {
       return const Right(null);
     } catch (e) {
       return Left(AuthFailure('Ошибка при выходе: $e'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, User?>> getStoredUser() async {
+    try {
+      final userModel = await dataSource.getStoredUser();
+      if (userModel != null) {
+        return Right(userModel.toEntity());
+      }
+      return const Right(null);
+    } catch (e) {
+      return Left(AuthFailure('Ошибка восстановления сессии: $e'));
     }
   }
 }

@@ -6,7 +6,6 @@ import 'package:auth_test/features/auth/presentation/bloc/auth_event.dart';
 import 'package:auth_test/features/auth/presentation/bloc/auth_state.dart';
 import 'package:auth_test/features/auth/presentation/widgets/primary_button.dart';
 
-/// Home page shown after successful authentication
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -19,12 +18,9 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
-          // Navigate back to login on logout
           if (state is AuthUnauthenticated) {
             context.go('/login');
-          }
-          // Show error if logout fails
-          else if (state is AuthError) {
+          } else if (state is AuthError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.message),
@@ -35,7 +31,6 @@ class HomePage extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          // Get user email from authenticated state
           String email = '';
           if (state is AuthAuthenticated) {
             email = state.user.email;
@@ -51,7 +46,6 @@ class HomePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      // Success Icon
                       Container(
                         padding: const EdgeInsets.all(24),
                         decoration: BoxDecoration(
@@ -66,7 +60,6 @@ class HomePage extends StatelessWidget {
                       ),
                       const SizedBox(height: 32),
 
-                      // Welcome Title
                       Text(
                         'Добро пожаловать!',
                         textAlign: TextAlign.center,
@@ -75,7 +68,6 @@ class HomePage extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
 
-                      // User Email
                       if (email.isNotEmpty) ...[
                         Container(
                           padding: const EdgeInsets.all(16),
@@ -110,7 +102,6 @@ class HomePage extends StatelessWidget {
                         const SizedBox(height: 32),
                       ],
 
-                      // Success Message
                       Text(
                         'Вы успешно вошли в систему',
                         textAlign: TextAlign.center,
@@ -120,42 +111,12 @@ class HomePage extends StatelessWidget {
                       ),
                       const SizedBox(height: 48),
 
-                      // Logout Button
                       SizedBox(
                         width: double.infinity,
                         child: PrimaryButton(
                           text: 'Выйти',
                           onPressed: () => _handleLogout(context),
                           backgroundColor: Colors.red.shade600,
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-
-                      // Additional Info Card
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade50,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: Colors.grey.shade200),
-                        ),
-                        child: Column(
-                          children: [
-                            Icon(
-                              Icons.info_outline,
-                              color: Colors.grey.shade600,
-                              size: 32,
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              'Это демонстрационное приложение для авторизации',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.grey.shade600,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ],
                         ),
                       ),
                     ],

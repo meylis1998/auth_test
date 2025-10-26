@@ -2,36 +2,59 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:auth_test/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:auth_test/features/auth/presentation/bloc/auth_state.dart';
+import 'package:auth_test/features/auth/presentation/pages/splash_page.dart';
 import 'package:auth_test/features/auth/presentation/pages/login_page.dart';
 import 'package:auth_test/features/auth/presentation/pages/home_page.dart';
 
-/// GoRouter configuration with auth redirect logic
 class AppRouter {
   final AuthBloc authBloc;
 
   AppRouter(this.authBloc);
 
   late final GoRouter router = GoRouter(
-    initialLocation: '/login',
+    initialLocation: '/splash',
     refreshListenable: GoRouterRefreshStream(authBloc.stream),
     redirect: (context, state) {
-      final isAuthenticated = authBloc.state is AuthAuthenticated;
-      final isLoggingIn = state.matchedLocation == '/login';
+      final authState = authBloc.state;
+      final isAuthenticated = authState is AuthAuthenticated;
+      final isUnauthenticated = authState is AuthUnauthenticated;
+      final isInitial = authState is AuthInitial;
+      final currentLocation = state.matchedLocation;
 
-      // If user is not authenticated and not on login page, redirect to login
-      if (!isAuthenticated && !isLoggingIn) {
-        return '/login';
+      if (isInitial) {
+        if (currentLocation != '/splash') {
+          return '/splash';
+        }
+        return null;
       }
 
-      // If user is authenticated and on login page, redirect to home
-      if (isAuthenticated && isLoggingIn) {
-        return '/home';
+      if (isAuthenticated) {
+        
+        if (currentLocation == '/login' || currentLocation == '/splash') {
+          return '/home';
+        }
+        return null;
       }
 
-      // No redirect needed
+      if (isUnauthenticated) {
+        
+        if (currentLocation == '/home' || currentLocation == '/splash') {
+          return '/login';
+        }
+        return null;
+      }
+
       return null;
     },
     routes: [
+      GoRoute(
+        path: '/splash',
+        name: 'splash',
+        pageBuilder: (context, state) => MaterialPage(
+          key: state.pageKey,
+          child: const SplashPage(),
+        ),
+      ),
       GoRoute(
         path: '/login',
         name: 'login',
@@ -57,7 +80,6 @@ class AppRouter {
   );
 }
 
-/// Custom class to make BLoC stream work with GoRouter refresh
 class GoRouterRefreshStream extends ChangeNotifier {
   GoRouterRefreshStream(Stream<dynamic> stream) {
     notifyListeners();

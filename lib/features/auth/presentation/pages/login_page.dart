@@ -8,7 +8,6 @@ import 'package:auth_test/features/auth/presentation/widgets/email_input_field.d
 import 'package:auth_test/features/auth/presentation/widgets/password_input_field.dart';
 import 'package:auth_test/features/auth/presentation/widgets/primary_button.dart';
 
-/// Login page with email and password fields
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -43,9 +42,7 @@ class _LoginPageState extends State<LoginPage> {
         listener: (context, state) {
           if (state is AuthAuthenticated) {
             context.go('/home');
-          }
-          // Show error snackbar
-          else if (state is AuthError) {
+          } else if (state is AuthError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.message),
@@ -75,7 +72,6 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      // App Logo/Icon
                       Icon(
                         Icons.lock_person_rounded,
                         size: 80,
@@ -83,7 +79,6 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       const SizedBox(height: 16),
 
-                      // Title
                       Text(
                         'Вход',
                         textAlign: TextAlign.center,
@@ -92,7 +87,6 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       const SizedBox(height: 8),
 
-                      // Subtitle
                       Text(
                         'Войдите в свой аккаунт',
                         textAlign: TextAlign.center,

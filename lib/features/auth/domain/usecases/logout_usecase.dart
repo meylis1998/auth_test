@@ -3,7 +3,6 @@ import 'package:auth_test/core/error/failures.dart';
 import 'package:auth_test/core/usecases/usecase.dart';
 import 'package:auth_test/features/auth/domain/repositories/auth_repository.dart';
 
-/// Use case for logging out a user
 class LogoutUseCase implements UseCase<void, NoParams> {
   final AuthRepository repository;
 

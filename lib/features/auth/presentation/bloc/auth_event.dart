@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-/// Base class for all AuthBloc events
 abstract class AuthEvent extends Equatable {
   const AuthEvent();
 
@@ -8,7 +7,6 @@ abstract class AuthEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-/// Event triggered when user types in email field
 class EmailChanged extends AuthEvent {
   final String email;
 
@@ -18,7 +16,6 @@ class EmailChanged extends AuthEvent {
   List<Object> get props => [email];
 }
 
-/// Event triggered when user types in password field
 class PasswordChanged extends AuthEvent {
   final String password;
 
@@ -28,7 +25,6 @@ class PasswordChanged extends AuthEvent {
   List<Object> get props => [password];
 }
 
-/// Event triggered when login button is pressed
 class LoginSubmitted extends AuthEvent {
   final String email;
   final String password;
@@ -39,7 +35,10 @@ class LoginSubmitted extends AuthEvent {
   List<Object> get props => [email, password];
 }
 
-/// Event triggered when logout button is pressed
 class LogoutRequested extends AuthEvent {
   const LogoutRequested();
+}
+
+class AuthStatusChecked extends AuthEvent {
+  const AuthStatusChecked();
 }
