@@ -1,0 +1,11 @@
+import 'package:equatable/equatable.dart';
+
+/// User entity representing an authenticated user
+class User extends Equatable {
+  final String email;
+
+  const User({required this.email});
+
+  @override
+  List<Object> get props => [email];
+}
